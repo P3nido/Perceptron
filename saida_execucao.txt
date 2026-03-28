@@ -1,0 +1,163 @@
+Treinamento de numero: 1
+Vetor de Pesos Iniciais: w0(theta)=0.41848, w1=-0.70560, w2=-0.79167, w3=0.11764
+Numero de epocas: 419
+Vetor de Pesos Finais: w0(theta)=-77.58152, w1=39.44780, w2=62.60198, w3=-18.49741
+--------------------------------------------------
+Planilha atualizada: questao-2.xlsx
+Metricas de validacao - Treinamento 1
+Matriz de Confusao (linhas = y_real [-1,+1], colunas = y_pred [-1,+1]):
+[[3 3]
+ [1 3]]
+Numero de Acertos: 6 | Numero de Erros: 4
+Acuracia: 0.6000 | Sensibilidade: 0.7500 | Especificidade: 0.5000 | Precisao: 0.5000
+--------------------------------------------------
+Planilha atualizada: questao-4.xlsx
+Grafico salvo em: grafico_treinamento_1.png
+Treinamento de numero: 2
+Vetor de Pesos Iniciais: w0(theta)=0.35245, w1=-0.21901, w2=-0.32331, w3=0.46802
+Numero de epocas: 428
+Vetor de Pesos Finais: w0(theta)=-78.14755, w1=39.88419, w2=62.87849, w3=-18.67283
+--------------------------------------------------
+Planilha atualizada: questao-2.xlsx
+Metricas de validacao - Treinamento 2
+Matriz de Confusao (linhas = y_real [-1,+1], colunas = y_pred [-1,+1]):
+[[3 3]
+ [1 3]]
+Numero de Acertos: 6 | Numero de Erros: 4
+Acuracia: 0.6000 | Sensibilidade: 0.7500 | Especificidade: 0.5000 | Precisao: 0.5000
+--------------------------------------------------
+Planilha atualizada: questao-4.xlsx
+Grafico salvo em: grafico_treinamento_2.png
+Treinamento de numero: 3
+Vetor de Pesos Iniciais: w0(theta)=-0.10168, w1=0.90443, w2=0.55767, w3=0.97788
+Numero de epocas: 346
+Vetor de Pesos Finais: w0(theta)=-72.60168, w1=35.00193, w2=60.38062, w3=-17.38217
+--------------------------------------------------
+Planilha atualizada: questao-2.xlsx
+Metricas de validacao - Treinamento 3
+Matriz de Confusao (linhas = y_real [-1,+1], colunas = y_pred [-1,+1]):
+[[3 3]
+ [1 3]]
+Numero de Acertos: 6 | Numero de Erros: 4
+Acuracia: 0.6000 | Sensibilidade: 0.7500 | Especificidade: 0.5000 | Precisao: 0.5000
+--------------------------------------------------
+Planilha atualizada: questao-4.xlsx
+Grafico salvo em: grafico_treinamento_3.png
+Treinamento de numero: 4
+Vetor de Pesos Iniciais: w0(theta)=0.71402, w1=-0.51530, w2=0.07981, w3=0.98344
+Numero de epocas: 397
+Vetor de Pesos Finais: w0(theta)=-77.28598, w1=38.42125, w2=61.95801, w3=-18.34686
+--------------------------------------------------
+Planilha atualizada: questao-2.xlsx
+Metricas de validacao - Treinamento 4
+Matriz de Confusao (linhas = y_real [-1,+1], colunas = y_pred [-1,+1]):
+[[3 3]
+ [1 3]]
+Numero de Acertos: 6 | Numero de Erros: 4
+Acuracia: 0.6000 | Sensibilidade: 0.7500 | Especificidade: 0.5000 | Precisao: 0.5000
+--------------------------------------------------
+Planilha atualizada: questao-4.xlsx
+Grafico salvo em: grafico_treinamento_4.png
+Treinamento de numero: 5
+Vetor de Pesos Iniciais: w0(theta)=0.80772, w1=0.71669, w2=-0.31684, w3=0.91636
+Numero de epocas: 460
+Vetor de Pesos Finais: w0(theta)=-79.69228, w1=40.14529, w2=63.64796, w3=-18.90829
+--------------------------------------------------
+Planilha atualizada: questao-2.xlsx
+Metricas de validacao - Treinamento 5
+Matriz de Confusao (linhas = y_real [-1,+1], colunas = y_pred [-1,+1]):
+[[3 3]
+ [1 3]]
+Numero de Acertos: 6 | Numero de Erros: 4
+Acuracia: 0.6000 | Sensibilidade: 0.7500 | Especificidade: 0.5000 | Precisao: 0.5000
+--------------------------------------------------
+Planilha atualizada: questao-4.xlsx
+Grafico salvo em: grafico_treinamento_5.png
+
+APRENDIZADO FINALIZADO!
+----------------------------------------
+RESULTADOS DA VALIDACAO POR TREINAMENTO:
+Treinamento 1:
+Amostra 1: y = -1.0 -> Classe P1
+Amostra 2: y = 1.0 -> Classe P2
+Amostra 3: y = 1.0 -> Classe P2
+Amostra 4: y = 1.0 -> Classe P2
+Amostra 5: y = 1.0 -> Classe P2
+Amostra 6: y = 1.0 -> Classe P2
+Amostra 7: y = -1.0 -> Classe P1
+Amostra 8: y = 1.0 -> Classe P2
+Amostra 9: y = -1.0 -> Classe P1
+Amostra 10: y = -1.0 -> Classe P1
+----------------------------------------
+Treinamento 2:
+Amostra 1: y = -1.0 -> Classe P1
+Amostra 2: y = 1.0 -> Classe P2
+Amostra 3: y = 1.0 -> Classe P2
+Amostra 4: y = 1.0 -> Classe P2
+Amostra 5: y = 1.0 -> Classe P2
+Amostra 6: y = 1.0 -> Classe P2
+Amostra 7: y = -1.0 -> Classe P1
+Amostra 8: y = 1.0 -> Classe P2
+Amostra 9: y = -1.0 -> Classe P1
+Amostra 10: y = -1.0 -> Classe P1
+----------------------------------------
+Treinamento 3:
+Amostra 1: y = -1.0 -> Classe P1
+Amostra 2: y = 1.0 -> Classe P2
+Amostra 3: y = 1.0 -> Classe P2
+Amostra 4: y = 1.0 -> Classe P2
+Amostra 5: y = 1.0 -> Classe P2
+Amostra 6: y = 1.0 -> Classe P2
+Amostra 7: y = -1.0 -> Classe P1
+Amostra 8: y = 1.0 -> Classe P2
+Amostra 9: y = -1.0 -> Classe P1
+Amostra 10: y = -1.0 -> Classe P1
+----------------------------------------
+Treinamento 4:
+Amostra 1: y = -1.0 -> Classe P1
+Amostra 2: y = 1.0 -> Classe P2
+Amostra 3: y = 1.0 -> Classe P2
+Amostra 4: y = 1.0 -> Classe P2
+Amostra 5: y = 1.0 -> Classe P2
+Amostra 6: y = 1.0 -> Classe P2
+Amostra 7: y = -1.0 -> Classe P1
+Amostra 8: y = 1.0 -> Classe P2
+Amostra 9: y = -1.0 -> Classe P1
+Amostra 10: y = -1.0 -> Classe P1
+----------------------------------------
+Treinamento 5:
+Amostra 1: y = -1.0 -> Classe P1
+Amostra 2: y = 1.0 -> Classe P2
+Amostra 3: y = 1.0 -> Classe P2
+Amostra 4: y = 1.0 -> Classe P2
+Amostra 5: y = 1.0 -> Classe P2
+Amostra 6: y = 1.0 -> Classe P2
+Amostra 7: y = -1.0 -> Classe P1
+Amostra 8: y = 1.0 -> Classe P2
+Amostra 9: y = -1.0 -> Classe P1
+Amostra 10: y = -1.0 -> Classe P1
+----------------------------------------
+
+RESUMO DAS METRICAS DAS 5 REDES (atividade 5):
+ treinamento  epocas  w0_final  w1_final  w2_final  w3_final  acertos  erros  Verdadeiro Negativo  Falso Positivo  Falso Negativo  Verdadeiro Positivo  acuracia  sensibilidade  especificidade  precisao
+           1     419 -77.58152  39.44780  62.60198 -18.49741        6      4                    3               3               1                    3       0.6           0.75             0.5       0.5
+           2     428 -78.14755  39.88419  62.87849 -18.67283        6      4                    3               3               1                    3       0.6           0.75             0.5       0.5
+           3     346 -72.60168  35.00193  60.38062 -17.38217        6      4                    3               3               1                    3       0.6           0.75             0.5       0.5
+           4     397 -77.28598  38.42125  61.95801 -18.34686        6      4                    3               3               1                    3       0.6           0.75             0.5       0.5
+           5     460 -79.69228  40.14529  63.64796 -18.90829        6      4                    3               3               1                    3       0.6           0.75             0.5       0.5
+
+Tabela de saidas y por treinamento (y_t1...y_t5):
+ amostra  y_t1  y_t2  y_t3  y_t4  y_t5
+       1  -1.0  -1.0  -1.0  -1.0  -1.0
+       2   1.0   1.0   1.0   1.0   1.0
+       3   1.0   1.0   1.0   1.0   1.0
+       4   1.0   1.0   1.0   1.0   1.0
+       5   1.0   1.0   1.0   1.0   1.0
+       6   1.0   1.0   1.0   1.0   1.0
+       7  -1.0  -1.0  -1.0  -1.0  -1.0
+       8   1.0   1.0   1.0   1.0   1.0
+       9  -1.0  -1.0  -1.0  -1.0  -1.0
+      10  -1.0  -1.0  -1.0  -1.0  -1.0
+Tabela visual salva em: tabela_metricas_treinamentos.png
+Tabela visual salva em: tabela_saidas_validacao.png
+Tabela visual salva em: tabela_ativacao_u_validacao.png
