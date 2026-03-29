@@ -1,0 +1,6 @@
+Treinamento;Verdadeiro Negativo;Falso Positivo;Falso Negativo;Verdadeiro Positivo;Numero de Acertos;Numero de Erros;Acuracia;Sensibilidade;Especificidade;Precisao
+1;4;0;0;6;10;0;1.0;1.0;1.0;1.0
+2;4;0;0;6;10;0;1.0;1.0;1.0;1.0
+3;4;0;0;6;10;0;1.0;1.0;1.0;1.0
+4;4;0;0;6;10;0;1.0;1.0;1.0;1.0
+5;4;0;0;6;10;0;1.0;1.0;1.0;1.0

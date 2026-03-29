@@ -6,7 +6,7 @@ from pathlib import Path #Utilizei apenas para criar o caminho do meu arquivo de
 import matplotlib.pyplot as plt #biblioteca para plotar os graficos 
 import pandas as pd #biblioteca para organizar os resultados que preenchem a planilha
 from openpyxl import load_workbook #biblioteca para escrever os resultados no arquivo xlsx mantendo o layout
-from sklearn.metrics import confusion_matrix, accuracy_score, recall_score, precision_score #biblioteca para calculo das metricas da validacao
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, accuracy_score, recall_score, precision_score #biblioteca para matriz de confusao e metricas
 
 
 '''Classe e funcao para redirecionar a saída do print para um arquivo de log, mantendo a saída no console.'''
@@ -117,12 +117,8 @@ pasta_graficos = Path(__file__).with_name("graficos")
 pasta_graficos.mkdir(exist_ok=True)
 resultados_treinamentos = []
 resultados_validacao_df = pd.DataFrame({"amostra": list(range(1, 11))})
-resultados_u_validacao_df = pd.DataFrame({"amostra": list(range(1, 11))})
+resultados_matriz_confusao = []
 resultados_metricas = []
-resultados_validacao_por_treinamento = []
-
-# Classe positiva de interesse: P2 (+1.0)
-y_real_tabela_2 = [-1.0, -1.0, 1.0, 1.0, 1.0, -1.0, 1.0, -1.0, -1.0, -1.0]
 
 tabela_2 = [
     [-0.3665, 0.0620, 5.9891], [-0.7842, 1.1267, 5.5912],
@@ -131,6 +127,9 @@ tabela_2 = [
     [0.3748, 0.1536, 6.1537], [-0.6920, 0.9404, 4.4058],
     [-1.3970, 0.7141, 4.9263], [-1.8842, -0.2805, 1.2548]
 ]
+
+# Vetor real de validacao informado pelo usuario
+y_real_validacao = [-1.0, 1.0, 1.0, 1.0, 1.0, 1.0, -1.0, 1.0, -1.0, -1.0]
 
 '''5 treinamentos (for de 0 a 4)'''
 for sessao in range(0, 5):
@@ -197,61 +196,75 @@ for sessao in range(0, 5):
     preencher_planilha_questao_2(caminho_planilha_q2, resultados_treinamentos_df)
 
     resultados_validacao_sessao = []
-    u_validacao_sessao = []
     for x_teste in tabela_2:
         u_validacao = sum(xi * wi for xi, wi in zip(x_teste, pesos)) + (tetha * -1)
         y_validacao = 1.0 if u_validacao >= 0 else -1.0
-        u_validacao_sessao.append(u_validacao)
         resultados_validacao_sessao.append(y_validacao)
 
-    resultados_validacao_por_treinamento.append({
-        "treinamento": sessao + 1,
-        "y_pred": resultados_validacao_sessao.copy(),
-        "u_pred": u_validacao_sessao.copy()
-    })
+    matriz_confusao = confusion_matrix(
+        y_real_validacao,
+        resultados_validacao_sessao,
+        labels=[-1.0, 1.0]
+    )
 
-    matriz_confusao = confusion_matrix(y_real_tabela_2, resultados_validacao_sessao, labels=[-1.0, 1.0])
-    tn, fp, fn, tp = matriz_confusao.ravel()
+    verdadeiro_negativo, falso_positivo, falso_negativo, verdadeiro_positivo = matriz_confusao.ravel()
+    numero_de_acertos = sum(
+        1 for valor_real, valor_previsto in zip(y_real_validacao, resultados_validacao_sessao)
+        if valor_real == valor_previsto
+    )
+    numero_de_erros = len(y_real_validacao) - numero_de_acertos
 
-    acertos = sum(1 for y_real, y_pred in zip(y_real_tabela_2, resultados_validacao_sessao) if y_real == y_pred)
-    erros = len(y_real_tabela_2) - acertos
-
-    acuracia = accuracy_score(y_real_tabela_2, resultados_validacao_sessao)
-    sensibilidade = recall_score(y_real_tabela_2, resultados_validacao_sessao, pos_label=1.0, zero_division=0)
-    especificidade = (tn / (tn + fp)) if (tn + fp) > 0 else 0.0
-    precisao = precision_score(y_real_tabela_2, resultados_validacao_sessao, pos_label=1.0, zero_division=0)
+    acuracia = accuracy_score(y_real_validacao, resultados_validacao_sessao)
+    sensibilidade = recall_score(y_real_validacao, resultados_validacao_sessao, pos_label=1.0, zero_division=0)
+    especificidade = (
+        verdadeiro_negativo / (verdadeiro_negativo + falso_positivo)
+        if (verdadeiro_negativo + falso_positivo) > 0
+        else 0.0
+    )
+    precisao = precision_score(y_real_validacao, resultados_validacao_sessao, pos_label=1.0, zero_division=0)
 
     resultados_metricas.append({
-        "treinamento": sessao + 1,
-        "epocas": int(n_epoca_sessao),
-        "w0_final": round(tetha, 5),
-        "w1_final": round(pesos[0], 5),
-        "w2_final": round(pesos[1], 5),
-        "w3_final": round(pesos[2], 5),
-        "acertos": int(acertos),
-        "erros": int(erros),
-        "Verdadeiro Negativo": int(tn),
-        "Falso Positivo": int(fp),
-        "Falso Negativo": int(fn),
-        "Verdadeiro Positivo": int(tp),
-        "acuracia": round(acuracia, 4),
-        "sensibilidade": round(sensibilidade, 4),
-        "especificidade": round(especificidade, 4),
-        "precisao": round(precisao, 4),
+        "Treinamento": sessao + 1,
+        "Verdadeiro Negativo": int(verdadeiro_negativo),
+        "Falso Positivo": int(falso_positivo),
+        "Falso Negativo": int(falso_negativo),
+        "Verdadeiro Positivo": int(verdadeiro_positivo),
+        "Numero de Acertos": int(numero_de_acertos),
+        "Numero de Erros": int(numero_de_erros),
+        "Acuracia": round(acuracia, 4),
+        "Sensibilidade": round(sensibilidade, 4),
+        "Especificidade": round(especificidade, 4),
+        "Precisao": round(precisao, 4),
     })
 
-    print(f"Metricas de validacao - Treinamento {sessao + 1}")
-    print("Matriz de Confusao (linhas = y_real [-1,+1], colunas = y_pred [-1,+1]):")
+    resultados_matriz_confusao.append({
+        "treinamento": sessao + 1,
+        "matriz": matriz_confusao
+    })
+
+    print(f"Matriz de confusao - Treinamento {sessao + 1}:")
     print(matriz_confusao)
-    print(f"Numero de Acertos: {acertos} | Numero de Erros: {erros}")
+
+    fig_cm, ax_cm = plt.subplots(figsize=(5, 4))
+    disp_cm = ConfusionMatrixDisplay(
+        confusion_matrix=matriz_confusao,
+        display_labels=["P1 (-1)", "P2 (+1)"]
+    )
+    disp_cm.plot(ax=ax_cm, cmap="Blues", colorbar=False, values_format="d")
+    ax_cm.set_title(f"Matriz de Confusao - Treinamento {sessao + 1}")
+    caminho_matriz = pasta_graficos / f"matriz_confusao_treinamento_{sessao + 1}.png"
+    fig_cm.tight_layout()
+    fig_cm.savefig(caminho_matriz, dpi=150)
+    print(f"Matriz de confusao salva em: {caminho_matriz.name}")
+    plt.close(fig_cm)
+
+    print(f"Numero de Acertos: {numero_de_acertos} | Numero de Erros: {numero_de_erros}")
     print(
         f"Acuracia: {acuracia:.4f} | Sensibilidade: {sensibilidade:.4f} | "
         f"Especificidade: {especificidade:.4f} | Precisao: {precisao:.4f}"
     )
-    print("-" * 50)
 
     resultados_validacao_df[f"y_t{sessao + 1}"] = resultados_validacao_sessao
-    resultados_u_validacao_df[f"u_t{sessao + 1}"] = [round(valor, 4) for valor in u_validacao_sessao]
     preencher_planilha_questao_4(caminho_planilha_q4, resultados_validacao_df)
 
 
@@ -272,6 +285,20 @@ for sessao in range(0, 5):
 
 print("\nAPRENDIZADO FINALIZADO!")
 time.sleep(2)
+
+print("\nRESUMO DAS MATRIZES DE CONFUSAO (5 TREINAMENTOS):")
+for resultado in resultados_matriz_confusao:
+    print(f"Treinamento {resultado['treinamento']}:")
+    print(resultado["matriz"])
+    print("-" * 40)
+
+print("\nTABELA DE METRICAS (PANDAS):")
+tabela_metricas_df = pd.DataFrame(resultados_metricas)
+print(tabela_metricas_df.to_string(index=False))
+
+caminho_tabela_metricas = pasta_graficos / "tabela_metricas_treinamentos.csv"
+tabela_metricas_df.to_csv(caminho_tabela_metricas, index=False, sep=";")
+print(f"Tabela de metricas salva em: {caminho_tabela_metricas.name}")
 
 
 '''Fase de validação final do Perceptron usando os pesos do ultimo treinamento.'''
@@ -295,85 +322,10 @@ time.sleep(2)
 # ] 
 
 print("-" * 40)
-print("RESULTADOS DA VALIDACAO POR TREINAMENTO:")
-for resultado_treino in resultados_validacao_por_treinamento:
-    treino = resultado_treino["treinamento"]
-    predicoes = resultado_treino["y_pred"]
-    print(f"Treinamento {treino}:")
-    for i, y_op in enumerate(predicoes, 1):
-        classe = "P2" if y_op == 1 else "P1"
-        print(f"Amostra {i}: y = {y_op} -> Classe {classe}")
-    print("-" * 40)
-
-print("\nRESUMO DAS METRICAS DAS 5 REDES (atividade 5):")
-resumo_metricas_df = pd.DataFrame(resultados_metricas)
-print(resumo_metricas_df.to_string(index=False))
-
-print("\nTabela de saidas y por treinamento (y_t1...y_t5):")
-print(resultados_validacao_df.to_string(index=False))
-
-# Gera uma tabela visual com as metricas das 5 redes e salva na pasta graficos
-fig, ax = plt.subplots(figsize=(16, 4.5))
-ax.axis("off")
-
-tabela_visual = ax.table(
-    cellText=resumo_metricas_df.values,
-    colLabels=resumo_metricas_df.columns,
-    loc="center",
-    cellLoc="center"
-)
-tabela_visual.auto_set_font_size(False)
-tabela_visual.set_fontsize(9)
-tabela_visual.scale(1.0, 1.4)
-
-plt.title("Resumo das Metricas - 5 Treinamentos", fontsize=12, pad=12)
-plt.tight_layout()
-
-caminho_tabela_metricas = pasta_graficos / "tabela_metricas_treinamentos.png"
-plt.savefig(caminho_tabela_metricas, dpi=200, bbox_inches="tight")
-print(f"Tabela visual salva em: {caminho_tabela_metricas.name}")
-plt.close()
-
-# Gera tabela visual das classes previstas por amostra em cada treinamento
-fig_y, ax_y = plt.subplots(figsize=(10, 4.5))
-ax_y.axis("off")
-
-tabela_y_visual = ax_y.table(
-    cellText=resultados_validacao_df.values,
-    colLabels=resultados_validacao_df.columns,
-    loc="center",
-    cellLoc="center"
-)
-tabela_y_visual.auto_set_font_size(False)
-tabela_y_visual.set_fontsize(9)
-tabela_y_visual.scale(1.0, 1.4)
-
-plt.title("Saidas de Validacao por Treinamento", fontsize=12, pad=12)
-plt.tight_layout()
-
-caminho_tabela_y = pasta_graficos / "tabela_saidas_validacao.png"
-plt.savefig(caminho_tabela_y, dpi=200, bbox_inches="tight")
-print(f"Tabela visual salva em: {caminho_tabela_y.name}")
-plt.close()
-
-# Gera tabela visual dos valores de ativacao u por amostra e treinamento
-fig_u, ax_u = plt.subplots(figsize=(10, 4.5))
-ax_u.axis("off")
-
-tabela_u_visual = ax_u.table(
-    cellText=resultados_u_validacao_df.values,
-    colLabels=resultados_u_validacao_df.columns,
-    loc="center",
-    cellLoc="center"
-)
-tabela_u_visual.auto_set_font_size(False)
-tabela_u_visual.set_fontsize(9)
-tabela_u_visual.scale(1.0, 1.4)
-
-plt.title("Valores de Ativacao (u) por Treinamento", fontsize=12, pad=12)
-plt.tight_layout()
-
-caminho_tabela_u = pasta_graficos / "tabela_ativacao_u_validacao.png"
-plt.savefig(caminho_tabela_u, dpi=200, bbox_inches="tight")
-print(f"Tabela visual salva em: {caminho_tabela_u.name}")
+print("RESULTADOS DA VALIDAÇÃO (TREINAMENTO FINAL):")
+for i, x_teste in enumerate(tabela_2, 1):
+    u_op = sum(xi * wi for xi, wi in zip(x_teste, pesos)) + (tetha * -1)
+    y_op = 1.0 if u_op >= 0 else -1.0
+    classe = "P2" if y_op == 1 else "P1"
+    print(f"Amostra {i}: y = {y_op} -> Classe {classe}")
 plt.close()
