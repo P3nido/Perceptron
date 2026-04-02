@@ -29,7 +29,9 @@ Na fase de validação, testada contra dados empíricos não vistos no treinamen
 ## 🚀 Como executar o projeto
 
 ### Pré-requisitos
-Certifique-se de ter o Python instalado na sua máquina e instale as bibliotecas necessárias. Recomenda-se o uso de um ambiente virtual (venv).
+Certifique-se de ter o Python instalado na sua máquina. Recomenda-se fortemente o uso de um ambiente virtual (venv) para isolar as dependências do projeto.
 
+1. Clone o repositório e acesse a pasta:
 ```bash
-pip install pandas openpyxl matplotlib scikit-learn
+git clone [https://github.com/P3nido/Perceptron.git](https://github.com/P3nido/Perceptron.git)
+cd Perceptron
