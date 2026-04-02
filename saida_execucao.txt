@@ -1,7 +1,7 @@
 Treinamento de numero: 1
-Vetor de Pesos Iniciais: w0(theta)=0.27870, w1=0.46125, w2=-0.02204, w3=-0.91911
-Numero de epocas: 449
-Vetor de Pesos Finais: w0(theta)=-78.72130, w1=39.77850, w2=63.45661, w3=-18.72666
+Vetor de Pesos Iniciais: w0(theta)=0.31484, w1=-0.38686, w2=-0.62830, w3=-0.23127
+Numero de epocas: 423
+Vetor de Pesos Finais: w0(theta)=-78.18516, w1=39.50924, w2=63.03075, w3=-18.59417
 --------------------------------------------------
 Planilha atualizada: questao-2.xlsx
 Matriz de confusao - Treinamento 1:
@@ -12,10 +12,11 @@ Numero de Acertos: 10 | Numero de Erros: 0
 Acuracia: 1.0000 | Sensibilidade: 1.0000 | Especificidade: 1.0000 | Precisao: 1.0000
 Planilha atualizada: questao-4.xlsx
 Grafico salvo em: grafico_treinamento_1.png
+Grafico RMSE salvo em: grafico_rmse_treinamento_1.png
 Treinamento de numero: 2
-Vetor de Pesos Iniciais: w0(theta)=0.01683, w1=-0.84331, w2=-0.11596, w3=0.94862
-Numero de epocas: 415
-Vetor de Pesos Finais: w0(theta)=-77.48317, w1=39.19959, w2=62.02874, w3=-18.43588
+Vetor de Pesos Iniciais: w0(theta)=0.40349, w1=0.32486, w2=0.09318, w3=0.90568
+Numero de epocas: 407
+Vetor de Pesos Finais: w0(theta)=-77.09651, w1=39.35701, w2=61.85038, w3=-18.38677
 --------------------------------------------------
 Planilha atualizada: questao-2.xlsx
 Matriz de confusao - Treinamento 2:
@@ -26,10 +27,11 @@ Numero de Acertos: 10 | Numero de Erros: 0
 Acuracia: 1.0000 | Sensibilidade: 1.0000 | Especificidade: 1.0000 | Precisao: 1.0000
 Planilha atualizada: questao-4.xlsx
 Grafico salvo em: grafico_treinamento_2.png
+Grafico RMSE salvo em: grafico_rmse_treinamento_2.png
 Treinamento de numero: 3
-Vetor de Pesos Iniciais: w0(theta)=-0.14565, w1=0.99086, w2=-0.34750, w3=-0.02105
-Numero de epocas: 439
-Vetor de Pesos Finais: w0(theta)=-78.64565, w1=39.25571, w2=63.10125, w3=-18.64690
+Vetor de Pesos Iniciais: w0(theta)=-0.55462, w1=0.73414, w2=0.05827, w3=0.23956
+Numero de epocas: 387
+Vetor de Pesos Finais: w0(theta)=-76.55462, w1=37.12209, w2=62.06352, w3=-18.26844
 --------------------------------------------------
 Planilha atualizada: questao-2.xlsx
 Matriz de confusao - Treinamento 3:
@@ -40,10 +42,11 @@ Numero de Acertos: 10 | Numero de Erros: 0
 Acuracia: 1.0000 | Sensibilidade: 1.0000 | Especificidade: 1.0000 | Precisao: 1.0000
 Planilha atualizada: questao-4.xlsx
 Grafico salvo em: grafico_treinamento_3.png
+Grafico RMSE salvo em: grafico_rmse_treinamento_3.png
 Treinamento de numero: 4
-Vetor de Pesos Iniciais: w0(theta)=0.71505, w1=0.07339, w2=-0.51551, w3=-0.34381
-Numero de epocas: 431
-Vetor de Pesos Finais: w0(theta)=-79.28495, w1=39.95804, w2=63.58569, w3=-18.82771
+Vetor de Pesos Iniciais: w0(theta)=-0.21325, w1=-0.15003, w2=0.97465, w3=-0.72340
+Numero de epocas: 432
+Vetor de Pesos Finais: w0(theta)=-78.21325, w1=39.38152, w2=63.00380, w3=-18.57980
 --------------------------------------------------
 Planilha atualizada: questao-2.xlsx
 Matriz de confusao - Treinamento 4:
@@ -54,10 +57,11 @@ Numero de Acertos: 10 | Numero de Erros: 0
 Acuracia: 1.0000 | Sensibilidade: 1.0000 | Especificidade: 1.0000 | Precisao: 1.0000
 Planilha atualizada: questao-4.xlsx
 Grafico salvo em: grafico_treinamento_4.png
+Grafico RMSE salvo em: grafico_rmse_treinamento_4.png
 Treinamento de numero: 5
-Vetor de Pesos Iniciais: w0(theta)=0.06744, w1=-0.17863, w2=0.76244, w3=-0.77550
-Numero de epocas: 445
-Vetor de Pesos Finais: w0(theta)=-77.93256, w1=40.23627, w2=63.01804, w3=-18.61670
+Vetor de Pesos Iniciais: w0(theta)=0.63738, w1=0.02694, w2=-0.25112, w3=-0.83067
+Numero de epocas: 432
+Vetor de Pesos Finais: w0(theta)=-78.36262, w1=39.67279, w2=62.92453, w3=-18.65132
 --------------------------------------------------
 Planilha atualizada: questao-2.xlsx
 Matriz de confusao - Treinamento 5:
@@ -68,6 +72,7 @@ Numero de Acertos: 10 | Numero de Erros: 0
 Acuracia: 1.0000 | Sensibilidade: 1.0000 | Especificidade: 1.0000 | Precisao: 1.0000
 Planilha atualizada: questao-4.xlsx
 Grafico salvo em: grafico_treinamento_5.png
+Grafico RMSE salvo em: grafico_rmse_treinamento_5.png
 
 APRENDIZADO FINALIZADO!
 

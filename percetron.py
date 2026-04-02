@@ -8,11 +8,8 @@ import pandas as pd #biblioteca para organizar os resultados que preenchem a pla
 from openpyxl import load_workbook #biblioteca para escrever os resultados no arquivo xlsx mantendo o layout
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, accuracy_score, recall_score, precision_score #biblioteca para matriz de confusao e metricas
 
-
 '''Classe e funcao para redirecionar a saída do print para um arquivo de log, mantendo a saída no console.'''
-
 class Tee:
-
     def __init__(self, *streams):
         self.streams = streams
 
@@ -24,20 +21,16 @@ class Tee:
         for stream in self.streams:
             stream.flush()
 
-
 arquivo_saida = Path(__file__).with_name("saida_execucao.txt")
 _stdout_original = sys.stdout
 _arquivo_log = open(arquivo_saida, "w", encoding="utf-8")
 sys.stdout = Tee(_stdout_original, _arquivo_log)
 
-
 def _finalizar_log_saida():
     sys.stdout = _stdout_original
     _arquivo_log.close()
 
-
 atexit.register(_finalizar_log_saida)
-
 
 def preencher_planilha_questao_2(caminho_planilha, resultados_df):
     if not caminho_planilha.exists():
@@ -63,7 +56,6 @@ def preencher_planilha_questao_2(caminho_planilha, resultados_df):
 
     workbook.save(caminho_planilha)
     print(f"Planilha atualizada: {caminho_planilha.name}")
-
 
 def preencher_planilha_questao_4(caminho_planilha, resultados_validacao_df):
     if not caminho_planilha.exists():
@@ -131,7 +123,7 @@ tabela_2 = [
 # Vetor real de validacao informado pelo usuario
 y_real_validacao = [-1.0, 1.0, 1.0, 1.0, 1.0, 1.0, -1.0, 1.0, -1.0, -1.0]
 
-'''5 treinamentos (for de 0 a 4)'''
+'''5 treinamentos (for de 0 a 5)'''
 for sessao in range(0, 5):
     time.sleep(2)
     
@@ -145,16 +137,27 @@ for sessao in range(0, 5):
     
     n_epoca_sessao = 0
     historico_erros = []
+    historico_rmse = []
     
-    while True:
-        '''variavel apenas para contar os erros da epoca para no final plotar a evolução no gráfico'''
+    while n_epoca_sessao < 1000:
+        '''variavel para contar os erros e RMSE da epoca para plotagem da evolução'''
         erros_vistos = 0 
+        soma_erros_quadrados = 0.0 
+        
         for linha in dados_treinamento:
             u_temp = sum(xi * wi for xi, wi in zip(linha[0:3], pesos)) + (tetha * -1)
             y_temp = 1.0 if u_temp >= 0 else -1.0
-            if y_temp != linha[3]:
+            d_real = linha[3]
+            
+            if y_temp != d_real:
                 erros_vistos += 1
+            
+            soma_erros_quadrados += (d_real - y_temp) ** 2
+                
         historico_erros.append(erros_vistos)
+        
+        rmse_epoca = (soma_erros_quadrados / len(dados_treinamento)) ** 0.5
+        historico_rmse.append(rmse_epoca)
 
         erro_na_epoca = False
         for linha in dados_treinamento:
@@ -268,19 +271,30 @@ for sessao in range(0, 5):
     preencher_planilha_questao_4(caminho_planilha_q4, resultados_validacao_df)
 
 
-    ''' plotando a evolução de aprendizado para cada treinamento'''
+    ''' plotando a evolução de aprendizado para cada treinamento '''
     plt.figure(figsize=(8, 4))
     plt.plot(range(1, n_epoca_sessao + 1), historico_erros, color='blue')
     plt.title(f'Evolucao do Erro - Treinamento {sessao + 1}')
     plt.xlabel('Epoca')
     plt.ylabel('Quantidade de Erros')
     plt.grid(True)
-
     caminho_grafico = pasta_graficos / f"grafico_treinamento_{sessao + 1}.png"
     plt.tight_layout()
     plt.savefig(caminho_grafico, dpi=150)
     print(f"Grafico salvo em: {caminho_grafico.name}")
+    plt.close()
 
+    ''' plotando a evolução do RMSE para cada treinamento '''
+    plt.figure(figsize=(8, 4))
+    plt.plot(range(1, n_epoca_sessao + 1), historico_rmse, color='red')
+    plt.title(f'Evolucao do RMSE - Treinamento {sessao + 1}')
+    plt.xlabel('Epoca')
+    plt.ylabel('RMSE (Raiz do Erro Quadratico Medio)')
+    plt.grid(True)
+    caminho_grafico_rmse = pasta_graficos / f"grafico_rmse_treinamento_{sessao + 1}.png"
+    plt.tight_layout()
+    plt.savefig(caminho_grafico_rmse, dpi=150)
+    print(f"Grafico RMSE salvo em: {caminho_grafico_rmse.name}")
     plt.close()
 
 print("\nAPRENDIZADO FINALIZADO!")
@@ -300,27 +314,7 @@ caminho_tabela_metricas = pasta_graficos / "tabela_metricas_treinamentos.csv"
 tabela_metricas_df.to_csv(caminho_tabela_metricas, index=False, sep=";")
 print(f"Tabela de metricas salva em: {caminho_tabela_metricas.name}")
 
-
 '''Fase de validação final do Perceptron usando os pesos do ultimo treinamento.'''
-
-# tabela_2 = [
-#     [-0.6508, 0.1097, 4.0009], [-1.4492, 0.8896, 4.4005],
-#     [2.0850, 0.6876, 12.0710], [0.2626, 1.1476, 7.7985],
-#     [0.6418, 1.0234, 7.0427], [0.2569, 0.6730, 8.3265],
-#     [1.1155, 0.6043, 7.4446], [0.0914, 0.3399, 7.0677],
-#     [0.0121, 0.5256, 4.6316], [-0.0429, 0.4660, 5.4323],
-#     [0.4340, 0.6870, 8.2287], [0.2735, 1.0287, 7.1934],
-#     [0.4839, 0.4851, 7.4850], [0.4089, -0.1267, 5.5019],
-#     [1.4391, 0.1614, 8.5843], [-0.9115, -0.1973, 2.1962],
-#     [0.3654, 1.0475, 7.4858], [0.2144, 0.7515, 7.1699],
-#     [0.2013, 1.0014, 6.5489], [0.6483, 0.2183, 5.8991],
-#     [-0.1147, 0.2242, 7.2435], [-0.7970, 0.8795, 3.8762],
-#     [-1.0625, 0.6366, 2.4707], [0.5307, 0.1285, 5.6883],
-#     [-1.2200, 0.7777, 1.7252], [0.3957, 0.1076, 5.6623],
-#     [-0.1013, 0.5989, 7.1812], [2.4482, 0.9455, 11.2095],
-#     [2.0149, 0.6192, 10.9263], [0.2012, 0.2611, 5.4631]
-# ] 
-
 print("-" * 40)
 print("RESULTADOS DA VALIDAÇÃO (TREINAMENTO FINAL):")
 for i, x_teste in enumerate(tabela_2, 1):
@@ -328,4 +322,3 @@ for i, x_teste in enumerate(tabela_2, 1):
     y_op = 1.0 if u_op >= 0 else -1.0
     classe = "P2" if y_op == 1 else "P1"
     print(f"Amostra {i}: y = {y_op} -> Classe {classe}")
-plt.close()
